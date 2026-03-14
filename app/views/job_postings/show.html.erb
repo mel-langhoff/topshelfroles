@@ -1,0 +1,13 @@
+<h1><%= @job_posting.title %></h1>
+
+<p><strong>Company:</strong> <%= @job_posting.company.name %></p>
+<p><strong>Remote:</strong> <%= @job_posting.remote ? "Yes" : "No" %></p>
+<p><strong>Posted:</strong> <%= @job_posting.posted_at&.to_date %></p>
+<p><strong>Status:</strong> <%= @job_posting.status.presence || "new" %></p>
+<p><strong>Apply:</strong> <%= link_to @job_posting.apply_url, @job_posting.apply_url, target: "_blank", rel: "noopener" %></p>
+
+<hr>
+
+<pre style="white-space: pre-wrap;"><%= @job_posting.description %></pre>
+
+<p><%= link_to "Back", root_path %></p>

@@ -3,8 +3,11 @@ class JobPosting < ApplicationRecord
   belongs_to :search_profile
   has_one :job_application, dependent: :destroy
 
+  STATUSES = %w[new saved applied dismissed].freeze
+
   validates :title, presence: true
   validates :apply_url, presence: true, uniqueness: true
+  validates :status, inclusion: { in: STATUSES }, allow_nil: true
 
   scope :active, -> { where(excluded: [false, nil]) }
   scope :remote_only, -> { where(remote: true) }

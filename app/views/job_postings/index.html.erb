@@ -1,13 +1,34 @@
 <h1>TopShelfRoles</h1>
 
-<table>
+<%= form_with url: root_path, method: :get, local: true do %>
+  <div style="margin-bottom: 20px;">
+    <%= label_tag :title, "Title" %>
+    <%= text_field_tag :title, params[:title] %>
+
+    <%= label_tag :company, "Company" %>
+    <%= text_field_tag :company, params[:company] %>
+
+    <%= label_tag :status, "Status" %>
+    <%= select_tag :status,
+      options_for_select([["All", ""], ["new", "new"], ["saved", "saved"], ["applied", "applied"], ["dismissed", "dismissed"]], params[:status]) %>
+
+    <%= label_tag :remote, "Remote only" %>
+    <%= check_box_tag :remote, "1", params[:remote].present? %>
+
+    <%= submit_tag "Filter" %>
+  </div>
+<% end %>
+
+<table border="1" cellpadding="8" cellspacing="0">
   <thead>
     <tr>
       <th>Company</th>
       <th>Title</th>
       <th>Remote</th>
       <th>Posted</th>
+      <th>Status</th>
       <th>Apply</th>
+      <th>Update</th>
     </tr>
   </thead>
 
@@ -15,13 +36,16 @@
     <% @job_postings.each do |job| %>
       <tr>
         <td><%= job.company.name %></td>
-        <td>
-          <%= link_to job.title, job_posting_path(job) %>
-        </td>
+        <td><%= link_to job.title, job_posting_path(job) %></td>
         <td><%= job.remote ? "Yes" : "No" %></td>
         <td><%= job.posted_at&.to_date %></td>
+        <td><%= job.status.presence || "new" %></td>
+        <td><%= link_to "Apply", job.apply_url, target: "_blank", rel: "noopener" %></td>
         <td>
-          <%= link_to "Apply", job.apply_url, target: "_blank" %>
+          <%= form_with model: job, method: :patch, local: true do |f| %>
+            <%= f.select :status, JobPosting::STATUSES, selected: job.status.presence || "new" %>
+            <%= f.submit "Save" %>
+          <% end %>
         </td>
       </tr>
     <% end %>

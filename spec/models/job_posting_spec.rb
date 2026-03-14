@@ -15,6 +15,21 @@ RSpec.describe JobPosting, type: :model do
     it { should validate_uniqueness_of(:apply_url) }
   end
 
+  describe "status validation" do
+    it "allows valid statuses" do
+      JobPosting::STATUSES.each do |valid_status|
+        job = build(:job_posting, status: valid_status)
+        expect(job).to be_valid
+      end
+    end
+
+    it "does not allow invalid statuses" do
+      job = build(:job_posting, status: "banana")
+      expect(job).not_to be_valid
+      expect(job.errors[:status]).to include("is not included in the list")
+    end
+  end
+
   describe "scopes" do
     let!(:remote_job)   { create(:job_posting, remote: true, excluded: false, posted_at: 2.days.ago, ai_score: 90) }
     let!(:onsite_job)   { create(:job_posting, remote: false, excluded: false, posted_at: 2.days.ago, ai_score: 70) }
