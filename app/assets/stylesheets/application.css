@@ -1,15 +1,169 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
  *= require_tree .
  *= require_self
- */
+*/
+
+
+/* =============================
+   GLOBAL PAGE
+============================= */
+
+body {
+  background: #6F3CC3; /* deep pastel purple background */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: white;
+  padding: 40px;
+}
+
+
+/* =============================
+   HEADER
+============================= */
+
+h1 {
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+
+/* =============================
+   SEARCH PANEL
+============================= */
+
+form {
+  background: #8F5CE0;
+  padding: 20px;
+  border-radius: 14px;
+  margin-bottom: 30px;
+}
+
+label {
+  font-weight: 600;
+  margin-right: 6px;
+}
+
+input,
+select {
+  background: #BFA2FF;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  margin-right: 10px;
+  color: #2c1a55;
+  font-weight: 500;
+}
+
+input:focus,
+select:focus {
+  outline: none;
+}
+
+
+/* =============================
+   BUTTONS
+============================= */
+
+input[type="submit"],
+button {
+  background: #D7C3FF;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  color: #3c1d8f;
+}
+
+input[type="submit"]:hover,
+button:hover {
+  background: #E7DBFF;
+}
+
+
+/* =============================
+   TABLE
+============================= */
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 16px; /* space between rows */
+}
+
+thead {
+  display: none; /* hide ugly table header */
+}
+
+
+/* =============================
+   JOB ROW CARD STYLE
+============================= */
+
+tbody tr {
+  background: #8F5CE0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.25);
+}
+
+tbody tr td {
+  padding: 16px;
+  border: none;
+}
+
+
+/* round corners */
+
+tbody tr td:first-child {
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+}
+
+tbody tr td:last-child {
+  border-top-right-radius: 16px;
+  border-bottom-right-radius: 16px;
+}
+
+
+/* =============================
+   LINKS
+============================= */
+
+a {
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+
+/* =============================
+   SCORE COLORS
+============================= */
+
+.score-high {
+  color: #A6FFB3;
+  font-weight: 700;
+}
+
+.score-mid {
+  color: #FFE58A;
+  font-weight: 700;
+}
+
+.score-low {
+  color: #FFB3B3;
+  font-weight: 700;
+}
+
+/* =============================
+   REMOVE WHITE HOVER
+============================= */
+
+tbody tr:hover {
+  background: #9F73F0 !important;
+  transform: translateY(-2px);
+}

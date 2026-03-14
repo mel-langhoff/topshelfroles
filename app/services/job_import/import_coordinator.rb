@@ -18,7 +18,7 @@ module JobImport
     def default_sources
       [
         JobSources::GreenhouseSource.new,
-        JobSources::CareerSiteSource.new
+        JobSources::CareerSiteSource.new,
       ]
     end
 

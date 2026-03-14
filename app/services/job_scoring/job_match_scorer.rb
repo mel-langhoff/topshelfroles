@@ -1,3 +1,5 @@
+require "openai"
+
 module JobScoring
   class JobMatchScorer
     def initialize(job)
@@ -5,58 +7,48 @@ module JobScoring
     end
 
     def call
-      score = 0
+      resume = load_resume
+      return unless resume
 
-      score += title_score
-      score += remote_score
-      score += keyword_score
-      score += location_score
-      score -= workday_penalty
+      score = score_job(resume)
 
-      job.update!(ai_score: score)
-
-      score
+      @job.update(ai_score: score)
     end
 
     private
 
-    attr_reader :job
+    def load_resume
+      path = Rails.root.join("config/data/resume.txt")
+      return unless File.exist?(path)
 
-    def title_score
-      return 30 if job.title.to_s.downcase.include?("technical program manager")
-      return 20 if job.title.to_s.downcase.include?("program manager")
-
-      0
+      File.read(path)
     end
 
-    def remote_score
-      job.remote ? 20 : 0
-    end
+    def score_job(resume)
+      client = OpenAI::Client.new(api_key: ENV["OPENAI_API_KEY"])
 
-    def keyword_score
-      text = "#{job.title} #{job.description}".downcase
+      prompt = <<~PROMPT
+      Score how well this job matches this resume from 0–100.
 
-      keywords = [
-        "api",
-        "ruby",
-        "rails",
-        "platform",
-        "backend",
-        "distributed systems"
-      ]
+      Resume:
+      #{resume}
 
-      keywords.count { |k| text.include?(k) } * 5
-    end
+      Job:
+      #{@job.description}
 
-    def location_score
-      return 10 if job.description.to_s.downcase.include?("united states")
-      return 5 if job.description.to_s.downcase.include?("remote")
+      Return only a number.
+      PROMPT
 
-      0
-    end
+      response = client.chat(
+        parameters: {
+          model: "gpt-4o-mini",
+          messages: [
+            { role: "user", content: prompt }
+          ]
+        }
+      )
 
-    def workday_penalty
-      job.apply_url.to_s.include?("workday") ? 15 : 0
+      response.dig("choices", 0, "message", "content").to_i
     end
   end
 end

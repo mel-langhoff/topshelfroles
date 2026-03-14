@@ -1,21 +1,20 @@
-require "openai"
-
 class AiLocationExtractor
   def extract(text)
-    return nil if text.nil? || text.empty?
+    return nil if text.nil?
 
-    client = OpenAI::Client.new(api_key: ENV["OPENAI_API_KEY"])
+    locations = [
+      "United States",
+      "USA",
+      "U.S.",
+      "Colorado",
+      "Denver",
+      "Boulder",
+      "Remote",
+      "US"
+    ]
 
-    response = client.chat(
-      model: "gpt-4o-mini",
-      messages: [
-        {
-          role: "user",
-          content: "Extract the job location from this text. Return only the location.\n\n#{text}"
-        }
-      ]
-    )
+    found = locations.find { |loc| text.downcase.include?(loc.downcase) }
 
-    response["choices"][0]["message"]["content"]
+    found || "Unknown"
   end
 end
