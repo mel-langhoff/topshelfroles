@@ -34,6 +34,10 @@
 
   </div>
 <% end %>
+<%= button_to "Refresh Jobs",
+  "/jobs/refresh",
+  method: :post,
+  style: "margin-left:10px;" %>
 
 
 <table border="1" cellpadding="8" cellspacing="0">

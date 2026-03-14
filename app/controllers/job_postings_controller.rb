@@ -58,6 +58,12 @@ class JobPostingsController < ApplicationController
     end
   end
 
+  def refresh
+  JobImport::ImportCoordinator.new.call
+
+  redirect_to root_path, notice: "Jobs refreshed."
+end
+
   private
 
   def job_posting_params
