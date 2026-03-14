@@ -32,12 +32,17 @@ module JobImport
       title = doc.at("title")&.text.to_s.strip
       body_text = doc.text.to_s
 
+      # ---- AI LOCATION EXTRACTION ----
+      ai = AiLocationExtractor.new
+      location_data = ai.extract(body_text[0..3000]) # limit tokens for cost/speed
+      # --------------------------------
+
       raw_job = {
         source_name: "crawler",
         company_name: extract_company,
         title: title,
-        location_text: body_text,
-        remote: remote_job?(body_text),
+        location_text: location_data["location"],
+        remote: location_data["remote"],
         apply_url: url,
         description: body_text,
         posted_at: Time.current
@@ -65,13 +70,6 @@ module JobImport
 
     def extract_company
       URI(url).host
-    end
-
-    def remote_job?(text)
-      haystack = text.to_s.downcase
-      haystack.include?("remote") ||
-        haystack.include?("united states") ||
-        haystack.include?("usa")
     end
   end
 end

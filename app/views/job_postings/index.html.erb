@@ -42,7 +42,17 @@
   <tbody>
     <% @job_postings.each do |job| %>
       <tr>
-        <td><%= job.ai_score || 0 %></td>
+        <td class="
+  <% if job.ai_score.to_i >= 80 %>
+    score-high
+  <% elsif job.ai_score.to_i >= 60 %>
+    score-mid
+  <% else %>
+    score-low
+  <% end %>
+">
+  <%= job.ai_score || 0 %>
+</td>
 
         <td><%= job.company.name %></td>
 
