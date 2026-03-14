@@ -42,7 +42,6 @@
   <tbody>
     <% @job_postings.each do |job| %>
       <tr>
-
         <td><%= job.ai_score || 0 %></td>
 
         <td><%= job.company.name %></td>
@@ -73,7 +72,6 @@
             <%= f.submit "Save" %>
           <% end %>
         </td>
-
       </tr>
     <% end %>
   </tbody>
