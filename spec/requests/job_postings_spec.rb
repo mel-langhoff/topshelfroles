@@ -3,39 +3,40 @@ require "rails_helper"
 RSpec.describe "JobPostings", type: :request do
   let!(:search_profile) { create(:search_profile) }
 
-  let!(:stripe) { create(:company, name: "Stripe") }
-  let!(:plaid)  { create(:company, name: "Plaid") }
+  let!(:company1) { create(:company, name: "Stripe") }
+  let!(:company2) { create(:company, name: "Plaid") }
 
   let!(:job1) do
     create(
       :job_posting,
-      company: stripe,
+      company: company1,
       search_profile: search_profile,
       title: "Technical Program Manager",
       remote: true,
       status: "new",
+      ai_score: 90,
       posted_at: 1.day.ago,
-      apply_url: "https://example.com/job/1"
+      apply_url: "https://example.com/job1"
     )
   end
 
   let!(:job2) do
     create(
       :job_posting,
-      company: plaid,
+      company: company2,
       search_profile: search_profile,
       title: "Backend Engineer",
       remote: false,
       status: "saved",
+      ai_score: 50,
       posted_at: 2.days.ago,
-      apply_url: "https://example.com/job/2"
+      apply_url: "https://example.com/job2"
     )
   end
 
   describe "GET /" do
     it "returns success" do
       get root_path
-
       expect(response).to have_http_status(:ok)
     end
 
@@ -46,8 +47,17 @@ RSpec.describe "JobPostings", type: :request do
       expect(response.body).to include("Backend Engineer")
     end
 
+    it "orders jobs by score" do
+      get root_path
+
+      first_index = response.body.index("Technical Program Manager")
+      second_index = response.body.index("Backend Engineer")
+
+      expect(first_index).to be < second_index
+    end
+
     it "filters by title" do
-      get root_path, params: { title: "Technical Program" }
+      get root_path, params: { title: "Program" }
 
       expect(response.body).to include("Technical Program Manager")
       expect(response.body).not_to include("Backend Engineer")
@@ -76,7 +86,7 @@ RSpec.describe "JobPostings", type: :request do
   end
 
   describe "GET /job_postings/:id" do
-    it "returns success" do
+    it "shows the job posting" do
       get job_posting_path(job1)
 
       expect(response).to have_http_status(:ok)
@@ -85,7 +95,7 @@ RSpec.describe "JobPostings", type: :request do
   end
 
   describe "PATCH /job_postings/:id" do
-    it "updates the job status" do
+    it "updates job status" do
       patch job_posting_path(job1), params: {
         job_posting: { status: "applied" }
       }

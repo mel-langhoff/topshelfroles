@@ -6,7 +6,7 @@ module JobImport
     end
 
     def call
-      @sources.each do |source|
+      sources.each do |source|
         import_source(source)
       end
     end
@@ -17,7 +17,8 @@ module JobImport
 
     def default_sources
       [
-        JobSources::GreenhouseSource.new
+        JobSources::GreenhouseSource.new,
+        JobSources::CareerSiteSource.new
       ]
     end
 
@@ -32,21 +33,25 @@ module JobImport
 
         company = Company.find_or_create_by!(name: normalized_job[:company_name])
 
-        JobPosting.find_or_initialize_by(apply_url: normalized_job[:apply_url]).tap do |job|
-          job.company = company
-          job.search_profile = search_profile
-          job.title = normalized_job[:title]
-          job.remote = normalized_job[:remote]
-          job.apply_url = normalized_job[:apply_url]
-          job.description = normalized_job[:description]
-          job.posted_at = normalized_job[:posted_at]
-          job.scraped_at = Time.current
-          job.status ||= "new"
-          job.ai_score ||= 0
-          job.friction_score ||= 0
-          job.excluded = false if job.excluded.nil?
-          job.save!
-        end
+        job = JobPosting.find_or_initialize_by(apply_url: normalized_job[:apply_url])
+
+        job.company = company
+        job.search_profile = search_profile
+        job.title = normalized_job[:title]
+        job.remote = normalized_job[:remote]
+        job.apply_url = normalized_job[:apply_url]
+        job.description = normalized_job[:description]
+        job.posted_at = normalized_job[:posted_at]
+        job.scraped_at = Time.current
+        job.status ||= "new"
+        job.ai_score ||= 0
+        job.friction_score ||= 0
+        job.excluded = false if job.excluded.nil?
+
+        job.save!
+
+        # score the job after saving
+        JobScoring::JobMatchScorer.new(job).call
       end
     end
   end

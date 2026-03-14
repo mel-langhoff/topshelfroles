@@ -1,7 +1,8 @@
 <h1>TopShelfRoles</h1>
 
 <%= form_with url: root_path, method: :get, local: true do %>
-  <div style="margin-bottom: 20px;">
+  <div style="margin-bottom:20px">
+
     <%= label_tag :title, "Title" %>
     <%= text_field_tag :title, params[:title] %>
 
@@ -10,18 +11,24 @@
 
     <%= label_tag :status, "Status" %>
     <%= select_tag :status,
-      options_for_select([["All", ""], ["new", "new"], ["saved", "saved"], ["applied", "applied"], ["dismissed", "dismissed"]], params[:status]) %>
+      options_for_select(
+        [["All", ""], ["new","new"], ["saved","saved"], ["applied","applied"], ["dismissed","dismissed"]],
+        params[:status]
+      ) %>
 
     <%= label_tag :remote, "Remote only" %>
-    <%= check_box_tag :remote, "1", params[:remote].present? %>
+    <%= check_box_tag :remote, "1", params[:remote] == "1" %>
 
     <%= submit_tag "Filter" %>
+
   </div>
 <% end %>
+
 
 <table border="1" cellpadding="8" cellspacing="0">
   <thead>
     <tr>
+      <th>Score</th>
       <th>Company</th>
       <th>Title</th>
       <th>Remote</th>
@@ -35,18 +42,38 @@
   <tbody>
     <% @job_postings.each do |job| %>
       <tr>
+
+        <td><%= job.ai_score || 0 %></td>
+
         <td><%= job.company.name %></td>
-        <td><%= link_to job.title, job_posting_path(job) %></td>
-        <td><%= job.remote ? "Yes" : "No" %></td>
-        <td><%= job.posted_at&.to_date %></td>
-        <td><%= job.status.presence || "new" %></td>
-        <td><%= link_to "Apply", job.apply_url, target: "_blank", rel: "noopener" %></td>
+
+        <td>
+          <%= link_to job.title, job_posting_path(job) %>
+        </td>
+
+        <td>
+          <%= job.remote ? "Yes" : "No" %>
+        </td>
+
+        <td>
+          <%= job.posted_at&.to_date %>
+        </td>
+
+        <td>
+          <%= job.status.presence || "new" %>
+        </td>
+
+        <td>
+          <%= link_to "Apply", job.apply_url, target: "_blank", rel: "noopener" %>
+        </td>
+
         <td>
           <%= form_with model: job, method: :patch, local: true do |f| %>
             <%= f.select :status, JobPosting::STATUSES, selected: job.status.presence || "new" %>
             <%= f.submit "Save" %>
           <% end %>
         </td>
+
       </tr>
     <% end %>
   </tbody>

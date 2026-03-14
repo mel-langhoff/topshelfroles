@@ -1,16 +1,20 @@
 class JobPostingsController < ApplicationController
   def index
-    @job_postings = JobPosting.includes(:company).order(posted_at: :desc)
+    @job_postings = JobPosting
+      .includes(:company)
+      .order(ai_score: :desc, posted_at: :desc)
 
     if params[:title].present?
-      @job_postings = @job_postings.where("title ILIKE ?", "%#{params[:title]}%")
+      @job_postings = @job_postings.where("job_postings.title ILIKE ?", "%#{params[:title]}%")
     end
 
     if params[:company].present?
-      @job_postings = @job_postings.joins(:company).where("companies.name ILIKE ?", "%#{params[:company]}%")
+      @job_postings = @job_postings
+        .joins(:company)
+        .where("companies.name ILIKE ?", "%#{params[:company]}%")
     end
 
-    if params[:remote].present?
+    if params[:remote] == "1"
       @job_postings = @job_postings.where(remote: true)
     end
 
