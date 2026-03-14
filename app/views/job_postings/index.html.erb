@@ -1,0 +1,29 @@
+<h1>TopShelfRoles</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Company</th>
+      <th>Title</th>
+      <th>Remote</th>
+      <th>Posted</th>
+      <th>Apply</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @job_postings.each do |job| %>
+      <tr>
+        <td><%= job.company.name %></td>
+        <td>
+          <%= link_to job.title, job_posting_path(job) %>
+        </td>
+        <td><%= job.remote ? "Yes" : "No" %></td>
+        <td><%= job.posted_at&.to_date %></td>
+        <td>
+          <%= link_to "Apply", job.apply_url, target: "_blank" %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
