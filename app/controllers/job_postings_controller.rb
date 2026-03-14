@@ -1,9 +1,13 @@
 class JobPostingsController < ApplicationController
   def index
-    @job_postings = JobPosting.includes(:company).order(ai_score: :desc)
+    @job_postings = JobPosting
+      .includes(:company)
+      .order(ai_score: :desc)
 
     if params[:title].present?
-      @job_postings = @job_postings.where("job_postings.title ILIKE ?", "%#{params[:title]}%")
+      @job_postings = @job_postings.where(
+        "job_postings.title ILIKE ?", "%#{params[:title]}%"
+      )
     end
 
     if params[:company].present?
