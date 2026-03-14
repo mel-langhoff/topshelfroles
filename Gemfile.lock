@@ -389,6 +389,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   launchy
+  nokogiri
   orderly
   pg (~> 1.1)
   pry

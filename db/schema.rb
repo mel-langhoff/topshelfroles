@@ -14,23 +14,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_14_185957) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "applications", force: :cascade do |t|
-    t.bigint "job_posting_id", null: false
-    t.string "status"
-    t.datetime "applied_at"
-    t.datetime "follow_up_due_at"
-    t.datetime "last_contact_at"
-    t.string "contact_name"
-    t.string "contact_email"
-    t.text "notes"
-    t.string "resume_version"
-    t.string "cover_letter_version"
-    t.text "outcome_notes"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["job_posting_id"], name: "index_applications_on_job_posting_id"
-  end
-
   create_table "companies", force: :cascade do |t|
     t.string "name"
     t.float "glassdoor_rating"
@@ -105,7 +88,6 @@ ActiveRecord::Schema[7.1].define(version: 2026_03_14_185957) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "applications", "job_postings"
   add_foreign_key "job_applications", "job_postings"
   add_foreign_key "job_postings", "companies"
   add_foreign_key "job_postings", "search_profiles"
