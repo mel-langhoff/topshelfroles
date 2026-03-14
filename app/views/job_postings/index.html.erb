@@ -9,6 +9,17 @@
     <%= label_tag :company, "Company" %>
     <%= text_field_tag :company, params[:company] %>
 
+    <%= label_tag :location, "Location" %>
+    <%= select_tag :location,
+      options_for_select(
+        [
+          ["All", ""],
+          ["United States", "us"],
+          ["Colorado", "colorado"]
+        ],
+        params[:location]
+      ) %>
+
     <%= label_tag :status, "Status" %>
     <%= select_tag :status,
       options_for_select(
@@ -31,6 +42,7 @@
       <th>Score</th>
       <th>Company</th>
       <th>Title</th>
+      <th>Location</th>
       <th>Remote</th>
       <th>Posted</th>
       <th>Status</th>
@@ -42,22 +54,27 @@
   <tbody>
     <% @job_postings.each do |job| %>
       <tr>
+
         <td class="
-  <% if job.ai_score.to_i >= 80 %>
-    score-high
-  <% elsif job.ai_score.to_i >= 60 %>
-    score-mid
-  <% else %>
-    score-low
-  <% end %>
-">
-  <%= job.ai_score || 0 %>
-</td>
+          <% if job.ai_score.to_i >= 80 %>
+            score-high
+          <% elsif job.ai_score.to_i >= 60 %>
+            score-mid
+          <% else %>
+            score-low
+          <% end %>
+        ">
+          <%= job.ai_score || 0 %>
+        </td>
 
         <td><%= job.company.name %></td>
 
         <td>
           <%= link_to job.title, job_posting_path(job) %>
+        </td>
+
+        <td>
+          <%= job.location %>
         </td>
 
         <td>
@@ -82,6 +99,7 @@
             <%= f.submit "Save" %>
           <% end %>
         </td>
+
       </tr>
     <% end %>
   </tbody>

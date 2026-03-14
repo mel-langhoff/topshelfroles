@@ -2,7 +2,7 @@ class JobPostingsController < ApplicationController
   def index
     @job_postings = JobPosting
       .includes(:company)
-      .order(ai_score: :desc)
+      .order(ai_score: :desc, posted_at: :desc)
 
     if params[:title].present?
       @job_postings = @job_postings.where(
@@ -14,6 +14,23 @@ class JobPostingsController < ApplicationController
       @job_postings = @job_postings
         .joins(:company)
         .where("companies.name ILIKE ?", "%#{params[:company]}%")
+    end
+
+    if params[:location].present?
+      if params[:location] == "us"
+        @job_postings = @job_postings.where(
+          "job_postings.remote = TRUE OR job_postings.location ILIKE ANY (ARRAY[?, ?, ?])",
+          "%united states%",
+          "%usa%",
+          "%us%"
+        )
+
+      elsif params[:location] == "colorado"
+        @job_postings = @job_postings.where(
+          "job_postings.location ILIKE ?",
+          "%colorado%"
+        )
+      end
     end
 
     if params[:remote] == "1"
