@@ -2,10 +2,16 @@ module JobDiscovery
   class SearchTerms
     def self.list
       [
-        "ruby engineer remote",
-        "ruby on rails engineer",
-        "backend ruby developer",
-        "rails developer remote"
+        "technical project manager",
+        "it project manager",
+        "ruby on rails",
+        "rails developer remote",
+        "customer success",
+        "customer service",
+        "agent",
+        "associate project manager",
+        "program manager",
+        "technical"
       ]
     end
   end
