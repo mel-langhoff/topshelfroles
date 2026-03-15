@@ -1,0 +1,2 @@
+class SearchTarget < ApplicationRecord
+end

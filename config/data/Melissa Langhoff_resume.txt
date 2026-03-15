@@ -1,0 +1,62 @@
+﻿Melissa Langhoff
+mlanghoff@uwalumni.com  |  414-324-7291  |  Boulder, CO  |  Github  |  LinkedIn  |  Portfolio
+________________
+
+
+Technical project / program manager and backend developer experienced with SaaS platforms, building RESTful APIs and automation tools, and leading cloud migrations and Agile software delivery across enterprise and startup environments. Bilingual in Spanish, with a strong record of translating business needs into shipped technical solutions for internal platforms and customer-facing systems.
+________________
+
+
+Core Skills: Agile Delivery  |  Bilingual (English/Spanish)  |  PostgreSQL |  REST APIs  |  Ruby on Rails
+ SaaS Platforms  |  Stakeholder Management  |  System Integrations
+________________
+
+
+Relevant Professional Experience:
+Mountainview Consulting  |  Technical Project Management Consultant (Part-time)
+Remote, September 2024 - Present
+* Implement automated reporting workflows using Ruby scripts and API integrations, increasing engineering velocity 12% across microservices and REST API workstreams by reducing cross-team blockers.
+* Drive faster SaaS delivery by translating complex backend requirements into actionable technical roadmaps for engineering and product teams.
+Self-employed  |  Tutor (Part-time)
+Remote, August 2020 - Present
+* Deliver personalized instruction to students and professionals, leveraging technology to meet academic goals.
+Xcel Energy  |  IT Project Manager (Contract)
+Remote, July 2022 - July 2023
+* Streamlined delivery processes by automating Jira workflows and introducing standardized Agile practices, reducing project lifecycles 10% (1–2 weeks). 
+* Led system architecture and energy savings initiative projects, improving team operational efficiency 26% through Agile coordination and delivery improvements.
+Sling TV  |  Program Manager (Contract)
+Denver, CO, February 2022 - July 2022
+* Spearheaded rollout of Agile/Scrum delivery frameworks across Dish Media and Sling TV teams to streamline IT and advertising project execution.
+* Improved team productivity by 15% by building custom Rally reporting dashboards to track real-time delivery metrics.
+Crocs  |  SAP Project Manager (Contract)
+Niwot, CO, September 2019 - April 2020
+* Orchestrated global SAP HANA Enterprise Cloud migration for a 45-person cross-functional team, coordinating vendors, QA testing, and cutover execution, delivering a 100% project success rate.
+* Reduced migration risk and downtime by designing enterprise testing schedules and rollout mitigation strategies.
+Sovos Compliance  |  Technical Project Manager
+Atlanta, GA, April 2017 - January 2019
+* Delivered SaaS SAP ERP compliance implementations for Fortune 500 clients with a 94% on-time delivery rate while managing up to 25 concurrent projects as the primary bilingual client lead for Accounts Payable solution and Payment Receipts (Complemento de Pagos) solution.
+* Increased client satisfaction by 34% by designing bilingual training programs, increasing visibility, performing systems integrations and software implementations, and advising on ERP system architecture and compliance workflows.
+Projects:
+* Personal Portfolio, Independent Development  |  Repository
+   * Built and deployed a full-stack Ruby on Rails application hosted on Heroku to showcase projects and dynamically manage resume content.
+   * Designed relational data models with ActiveRecord and implemented backend functionality using Ruby, SQL, and RESTful APIs. Developed the frontend with HTML, CSS, and Bootstrap and tested features using RSpec and Postman.
+*   Pimp My Res, Independent Development  |  Repository
+   * Developed a Ruby on Rails application that scrapes backend engineering job postings and generates tailored resumes using Nokogiri web scraping and OpenAI & custom API integrations.
+   * Implemented relational data models with ActiveRecord and built features for content generation and PDF export. Developed the interface with HTML, CSS, Bootstrap, and Ruby gems and added testing with RSpec, Postman, and CI/CD workflows.
+Education: 
+* Turing School of Software & Design  |  Remote, October 2023 - September 2024
+Backend Engineering Certification
+* University of Wisconsin-Madison  |  Madison, WI, May 2016
+Bachelor of Arts in Linguistics; Bachelor of Arts in Spanish
+Skills:
+* Technical Skills: 
+   * Backend:  Ruby, Ruby on Rails, ActiveRecord
+   * Databases: PostgreSQL, SQL
+   * Frontend: CSS, HTML
+   * APIs & Data Formats: JSON, REST APIs, XML
+   * API Development & Testing: Postman
+* Engineering Practices & Development: Object-Oriented Programming, Test-Driven Development (TDD), Sprint Planning, Release Management
+* Product & Delivery: Agile Project Management, Scrum, Kanban, Software Development Life Cycle (SDLC), Product Lifecycle, Feature Prioritization, Product Roadmaps, User Stories
+* Tools & Platforms: Asana, Confluence, Git, Jira, Miro, Rally, Salesforce, ServiceNow, SharePoint, Slack, Smartsheet, WordPress
+* Enterprise & Business: Budget Management, Business Process Improvement, Change Management, Cutover Planning, Data-Driven Decision Making, Employee Training, Instructional Design, Operational Metrics, Stakeholder Management, Strategic Planning, Translation, Vendor Management
+* Interests: Coding, Cooking, Cycling, Languages, Literature, Snowshoeing

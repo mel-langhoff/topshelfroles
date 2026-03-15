@@ -1,0 +1,64 @@
+﻿Melissa Langhoff
+mlanghoff@uwalumni.com  |  414-324-7291  |  Boulder, CO  |  Github  |  LinkedIn  |  Portfolio
+________________
+
+
+Customer-Focused IT Professional with experience managing client relationships, delivering SaaS solutions, and guiding organizations through technical implementations and process improvements. Skilled at translating complex technical concepts into clear, actionable guidance that drives adoption, retention, and successful outcomes. Fluent in Spanish with a proven record of cross-functional collaboration, training, and customer advocacy.
+________________
+
+
+Core Competencies: Agile Delivery  |  Bilingual (English/Spanish)  |  Customer Success & Advocacy  |  REST APIs
+ Ruby on Rails  |  Stakeholder Engagement  |  Technical Communication  |  Training & Adoption
+Relevant Professional Experience:
+Mountainview Consulting  |  Technical Project Management Consultant (Part-time)
+Remote, September 2024 - Present
+* Work directly with clients to understand operational challenges and implement technical workflow improvements, including automated reporting systems built with Ruby scripts and API integrations that improved visibility across engineering teams and increased delivery velocity by 12%.
+* Translate backend requirements and engineering workstreams into clear plans for stakeholders and product teams, helping clients adopt new processes and tools that improve collaboration and delivery outcomes.
+Maurer Maintenance  |  Operations Manager (Part-time)
+Boulder, CO, September 2024 - Present
+* Oversee daily service operations including technician scheduling, dispatch coordination, and customer communications, ensuring projects run smoothly and customers stay informed throughout the service process.
+* Serve as the primary customer contact for service requests, resolving issues, coordinating billing and scheduling logistics, and supporting field teams so jobs are completed efficiently and professionally.
+Self-employed  |  Tutor (Part-time)
+Remote, August 2020 - Present
+* Provide personalized instruction to students and professionals, developing structured learning plans and adapting teaching methods to support individual learning styles and academic goals.
+* Maintain long-term relationships with students and families through clear communication, progress tracking, and consistent support.
+Xcel Energy  |  IT Project Manager (Contract)
+Remote, July 2022 - July 2023
+* Improved project delivery timelines by introducing automated Jira workflows and standardized Agile practices, reducing project lifecycles by roughly 10% while improving visibility into work across engineering and business teams. 
+* Acted as the bridge between engineering teams and internal stakeholders, translating technical requirements into actionable plans and supporting change management efforts to ensure successful adoption of new tools and processes.
+Sling TV  |  Program Manager (Contract)
+Denver, CO, February 2022 - July 2022
+* Implemented Agile/Scrum delivery frameworks across IT and advertising teams, improving collaboration and increasing productivity by 15% through clearer processes and communication.
+* Developed testing strategies and rollout plans that minimized risk and downtime while guiding business teams through the transition with clear communication and support.
+Crocs  |  SAP Project Manager (Contract)
+Niwot, CO, September 2019 - April 2020
+* Managed a global SAP HANA Enterprise Cloud migration involving a 45-person cross-functional team, coordinating vendors, testing schedules, and deployment planning to ensure a successful transition.
+* Designed comprehensive testing schedules and rollout strategies that minimized migration risk and downtime while guiding business users through the change with clear communication and thoughtful support.
+Sovos Compliance  |  Technical Project Manager
+Atlanta, GA, April 2017 - January 2019
+* Managed SaaS ERP compliance implementations for Fortune 500 clients while serving as the primary contact for the Accounts Payable solution and Payment Receipts (Complemento de Pagos) solution, advising teams on integrations, system configuration, and implementation strategy.
+* Oversaw up to 25 concurrent projects with a 94% on-time delivery rate while designing bilingual training programs that increased client satisfaction by 34%.
+Projects:
+* Personal Portfolio, Independent Development  |  Repository
+   * Built and deployed a full-stack Ruby on Rails application hosted on Heroku using ActiveRecord, SQL, and REST APIs to showcase professional projects.
+   * Developed the frontend using HTML, CSS, and Bootstrap and implemented testing with RSpec and Postman.
+*   Pimp My Res, Independent Development  |  Repository
+   * Developed a Ruby on Rails application that scrapes job postings and generates tailored resumes using Nokogiri web scraping and OpenAI & custom API integrations.
+   * Built relational data models, REST API integrations, and PDF export functionality while developing the interface with HTML, CSS, and Bootstrap and maintaining testing workflows using RSpec and CI/CD practices.
+Education: 
+* Turing School of Software & Design  |  Remote, October 2023 - September 2024
+Backend Engineering Certification
+* University of Wisconsin-Madison  |  Madison, WI, May 2016
+Bachelor of Arts in Linguistics; Bachelor of Arts in Spanish
+Skills:
+* Technical Skills: 
+   * Backend:  Ruby, Ruby on Rails, ActiveRecord
+   * Databases: PostgreSQL, SQL
+   * Frontend: CSS, HTML
+   * APIs & Data Formats: JSON, REST APIs, XML
+   * API Development & Testing: Postman
+* Engineering Practices & Development: Object-Oriented Programming, Test-Driven Development (TDD), Sprint Planning, Release Management
+* Product & Delivery: Agile Project Management, Scrum, Kanban, Software Development Life Cycle (SDLC), Product Lifecycle, Feature Prioritization, Product Roadmaps, User Stories
+* Tools & Platforms: Asana, Confluence, Git, Jira, Miro, Rally, Salesforce, ServiceNow, SharePoint, Slack, Smartsheet, WordPress
+* Enterprise & Business: Budget Management, Business Process Improvement, Change Management, Cutover Planning, Data-Driven Decision Making, Employee Training, Instructional Design, Operational Metrics, Stakeholder Management, Strategic Planning, Translation, Vendor Management
+* Interests: Coding, Cooking, Cycling, Languages, Literature, Snowshoeing
