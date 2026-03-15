@@ -32,17 +32,13 @@ module JobImport
       title = doc.at("title")&.text.to_s.strip
       body_text = doc.text.to_s
 
-      # ---- AI LOCATION EXTRACTION ----
-      ai = AiLocationExtractor.new
-      location_data = ai.extract(body_text[0..3000]) # limit tokens for cost/speed
-      # --------------------------------
+      location_text = AiLocationExtractor.new.extract(body_text)
 
       raw_job = {
         source_name: "crawler",
         company_name: extract_company,
         title: title,
-        location_text: location_data["location"],
-        remote: location_data["remote"],
+        location_text: location_text,
         apply_url: url,
         description: body_text,
         posted_at: Time.current
@@ -53,19 +49,21 @@ module JobImport
 
       company = Company.find_or_create_by!(name: normalized[:company_name])
 
-      JobPosting.find_or_create_by!(apply_url: normalized[:apply_url]) do |job|
-        job.company = company
-        job.search_profile = SearchProfile.first
-        job.title = normalized[:title]
-        job.remote = normalized[:remote]
-        job.description = normalized[:description]
-        job.posted_at = normalized[:posted_at]
-        job.scraped_at = Time.current
-        job.status ||= "new"
-        job.ai_score ||= 0
-        job.friction_score ||= 0
-        job.excluded = false if job.excluded.nil?
-      end
+      job = JobPosting.find_or_initialize_by(apply_url: normalized[:apply_url])
+
+      job.company = company
+      job.search_profile ||= SearchProfile.first
+      job.title = normalized[:title]
+      job.remote = normalized[:remote]
+      job.description = normalized[:description]
+      job.posted_at = normalized[:posted_at]
+      job.scraped_at = Time.current
+      job.status ||= "new"
+      job.ai_score ||= 0
+      job.friction_score ||= 0
+      job.excluded = false if job.excluded.nil?
+
+      job.save!
     end
 
     def extract_company

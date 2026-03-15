@@ -17,20 +17,23 @@ class JobPostingsController < ApplicationController
     end
 
     if params[:location].present?
+
       if params[:location] == "us"
         @job_postings = @job_postings.where(
-          "job_postings.remote = TRUE OR job_postings.location ILIKE ANY (ARRAY[?, ?, ?])",
+          "job_postings.remote = TRUE OR job_postings.location ILIKE ? OR job_postings.location ILIKE ? OR job_postings.location ILIKE ?",
           "%united states%",
           "%usa%",
           "%us%"
         )
+      end
 
-      elsif params[:location] == "colorado"
+      if params[:location] == "colorado"
         @job_postings = @job_postings.where(
           "job_postings.location ILIKE ?",
           "%colorado%"
         )
       end
+
     end
 
     if params[:remote] == "1"
@@ -56,6 +59,11 @@ class JobPostingsController < ApplicationController
     else
       redirect_to root_path, alert: "Could not update job."
     end
+  end
+
+  def refresh
+    JobImport::ImportCoordinator.new.call
+    redirect_to root_path, notice: "Jobs refreshed."
   end
 
   private

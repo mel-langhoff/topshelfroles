@@ -10,11 +10,12 @@ module JobSources
     ]
 
     def fetch_jobs
-      URLS.each do |url|
-        JobImport::JobPageScraper.new(url).call
+      URLS.map do |url|
+        {
+          apply_url: url,
+          source_name: "scraped_site"
+        }
       end
-
-      []
     end
 
   end
