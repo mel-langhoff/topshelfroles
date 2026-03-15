@@ -19,6 +19,8 @@ module JobImport
       [
         JobSources::GreenhouseSource.new,
         JobSources::CareerSiteSource.new,
+        JobSources::WorkableService.new,
+        JobSources::AshbyService.new
       ]
     end
 
@@ -35,14 +37,17 @@ module JobImport
 
         job = JobPosting.find_or_initialize_by(apply_url: normalized_job[:apply_url])
 
-        job.company = company
-        job.search_profile = search_profile
-        job.title = normalized_job[:title]
-        job.remote = normalized_job[:remote]
-        job.apply_url = normalized_job[:apply_url]
-        job.description = normalized_job[:description]
-        job.posted_at = normalized_job[:posted_at]
-        job.scraped_at = Time.current
+        job.assign_attributes(
+          company: company,
+          search_profile: search_profile,
+          title: normalized_job[:title],
+          remote: normalized_job[:remote],
+          apply_url: normalized_job[:apply_url],
+          description: normalized_job[:description],
+          posted_at: normalized_job[:posted_at],
+          scraped_at: Time.current
+        )
+
         job.status ||= "new"
         job.ai_score ||= 0
         job.friction_score ||= 0
@@ -50,9 +55,11 @@ module JobImport
 
         job.save!
 
-        # score the job after saving
+        # Run AI scoring AFTER job is stored
         JobScoring::JobMatchScorer.new(job).call
       end
+    rescue StandardError => e
+      Rails.logger.error("Import failed for #{source.class.name}: #{e.message}")
     end
   end
 end

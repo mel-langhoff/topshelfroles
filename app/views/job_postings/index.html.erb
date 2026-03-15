@@ -23,23 +23,38 @@
     <%= label_tag :status, "Status" %>
     <%= select_tag :status,
       options_for_select(
-        [["All", ""], ["new","new"], ["saved","saved"], ["applied","applied"], ["dismissed","dismissed"]],
+        [
+          ["All", ""],
+          ["new", "new"],
+          ["saved", "saved"],
+          ["applied", "applied"],
+          ["dismissed", "dismissed"]
+        ],
         params[:status]
       ) %>
 
     <%= label_tag :remote, "Remote only" %>
     <%= check_box_tag :remote, "1", params[:remote] == "1" %>
 
+    <%= label_tag :sort, "Sort" %>
+    <%= select_tag :sort,
+      options_for_select(
+        [
+          ["Best Match", "ai"],
+          ["Most Recent", "recent"]
+        ],
+        params[:sort]
+      ) %>
+
     <%= submit_tag "Filter" %>
 
     <%= button_to "Refresh Jobs",
-  "/jobs/refresh",
-  method: :post,
-  style: "margin-left:10px;" %>
-  
+      "/jobs/refresh",
+      method: :post,
+      style: "margin-left:10px;" %>
+
   </div>
 <% end %>
-
 
 
 <table border="1" cellpadding="8" cellspacing="0">
@@ -73,7 +88,9 @@
           <%= job.ai_score || 0 %>
         </td>
 
-        <td><%= job.company.name %></td>
+        <td>
+          <%= job.company.name %>
+        </td>
 
         <td>
           <%= link_to job.title, job_posting_path(job) %>
