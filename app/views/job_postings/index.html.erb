@@ -1,4 +1,4 @@
-<h1>TopShelfRoles</h1>
+<h1>Top Shelf Rolez</h1>
 
 <%= form_with url: root_path, method: :get, local: true do %>
   <div style="margin-bottom:20px">
@@ -32,12 +32,14 @@
 
     <%= submit_tag "Filter" %>
 
-  </div>
-<% end %>
-<%= button_to "Refresh Jobs",
+    <%= button_to "Refresh Jobs",
   "/jobs/refresh",
   method: :post,
   style: "margin-left:10px;" %>
+  
+  </div>
+<% end %>
+
 
 
 <table border="1" cellpadding="8" cellspacing="0">
