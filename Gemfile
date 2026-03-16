@@ -48,7 +48,7 @@ gem "openai"
 gem 'jquery-rails'
 gem "redcarpet"
 gem "docx"
-
+gem "httparty"
 
 
 
