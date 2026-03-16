@@ -1,16 +1,4 @@
-﻿Melissa Langhoff
-mlanghoff@uwalumni.com  |  414-324-7291  |  Boulder, CO  |  Github  |  LinkedIn  |  Portfolio
-________________
-
-
-Technical project / program manager and backend developer experienced with SaaS platforms, building RESTful APIs and automation tools, and leading cloud migrations and Agile software delivery across enterprise and startup environments. Bilingual in Spanish, with a strong record of translating business needs into shipped technical solutions for internal platforms and customer-facing systems.
-________________
-
-
-Core Skills: Agile Delivery  |  Bilingual (English/Spanish)  |  PostgreSQL |  REST APIs  |  Ruby on Rails
- SaaS Platforms  |  Stakeholder Management  |  System Integrations
-________________
-
+﻿Technical project / program manager and backend developer experienced with SaaS platforms, building RESTful APIs and automation tools, and leading cloud migrations and Agile software delivery across enterprise and startup environments. Bilingual in Spanish, with a strong record of translating business needs into shipped technical solutions for internal platforms and customer-facing systems.
 
 Relevant Professional Experience:
 Mountainview Consulting  |  Technical Project Management Consultant (Part-time)
@@ -37,6 +25,9 @@ Atlanta, GA, April 2017 - January 2019
 * Delivered SaaS SAP ERP compliance implementations for Fortune 500 clients with a 94% on-time delivery rate while managing up to 25 concurrent projects as the primary bilingual client lead for Accounts Payable solution and Payment Receipts (Complemento de Pagos) solution.
 * Increased client satisfaction by 34% by designing bilingual training programs, increasing visibility, performing systems integrations and software implementations, and advising on ERP system architecture and compliance workflows.
 Projects:
+* Top Shelf Poles, Indepdenet Development 
+   * Developed TopShelfRoles, a Ruby on Rails application that aggregates and manages job postings using Nokogiri web scraping, external APIs, and OpenAI integrations to analyze opportunities and generate tailored resumes and cover letters.
+   * Designed relational data models with ActiveRecord and implemented features for AI-powered content generation, job scoring and ranking, and PDF/DOCX export, while building the interface with HTML, CSS, and Bootstrap and adding automated testing with RSpec, Postman, and CI/CD workflows.
 * Personal Portfolio, Independent Development  |  Repository
    * Built and deployed a full-stack Ruby on Rails application hosted on Heroku to showcase projects and dynamically manage resume content.
    * Designed relational data models with ActiveRecord and implemented backend functionality using Ruby, SQL, and RESTful APIs. Developed the frontend with HTML, CSS, and Bootstrap and tested features using RSpec and Postman.

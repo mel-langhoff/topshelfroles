@@ -1,14 +1,5 @@
-﻿Melissa Langhoff
-mlanghoff@uwalumni.com  |  414-324-7291  |  Boulder, CO  |  Github  |  LinkedIn  |  Portfolio
-________________
+﻿Customer-Focused IT Professional with experience managing client relationships, delivering SaaS solutions, and guiding organizations through technical implementations and process improvements. Skilled at translating complex technical concepts into clear, actionable guidance that drives adoption, retention, and successful outcomes. Fluent in Spanish with a proven record of cross-functional collaboration, training, and customer advocacy.
 
-
-Customer-Focused IT Professional with experience managing client relationships, delivering SaaS solutions, and guiding organizations through technical implementations and process improvements. Skilled at translating complex technical concepts into clear, actionable guidance that drives adoption, retention, and successful outcomes. Fluent in Spanish with a proven record of cross-functional collaboration, training, and customer advocacy.
-________________
-
-
-Core Competencies: Agile Delivery  |  Bilingual (English/Spanish)  |  Customer Success & Advocacy  |  REST APIs
- Ruby on Rails  |  Stakeholder Engagement  |  Technical Communication  |  Training & Adoption
 Relevant Professional Experience:
 Mountainview Consulting  |  Technical Project Management Consultant (Part-time)
 Remote, September 2024 - Present

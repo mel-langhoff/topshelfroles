@@ -52,3 +52,11 @@ tr:hover {
   margin-bottom: 20px;
   border-radius: 6px;
 }
+
+.cover-letter-box {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  max-width: 700px;
+  padding: 20px;
+  line-height: 1.6;
+}
