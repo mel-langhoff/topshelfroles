@@ -1,65 +1,66 @@
 class JobPostingsController < ApplicationController
 
-  def index
-    @job_postings = JobPosting.includes(:company)
+def index
+  @job_postings = JobPosting.includes(:company)
 
-    # Title filter
-    if params[:title].present?
-      @job_postings = @job_postings.where(
-        "job_postings.title ILIKE ?", "%#{params[:title]}%"
-      )
-    end
-
-    # Company filter
-    if params[:company].present?
-      @job_postings = @job_postings
-        .joins(:company)
-        .where("companies.name ILIKE ?", "%#{params[:company]}%")
-    end
-
-    # Location filter
-    if params[:location].present?
-      case params[:location]
-
-      when "us"
-        @job_postings = @job_postings.where(
-          "job_postings.remote = TRUE OR job_postings.location ILIKE ? OR job_postings.location ILIKE ? OR job_postings.location ILIKE ?",
-          "%united states%",
-          "%usa%",
-          "%us%"
-        )
-
-      when "colorado"
-        @job_postings = @job_postings.where(
-          "job_postings.location ILIKE ? OR job_postings.location ILIKE ? OR job_postings.location ILIKE ?",
-          "%colorado%",
-          "%denver%",
-          "%boulder%"
-        )
-
-      end
-    end
-
-    # Remote filter
-    if params[:remote] == "1"
-      @job_postings = @job_postings.where(remote: true)
-    end
-
-    # Status filter
-    if params[:status].present?
-      @job_postings = @job_postings.where(status: params[:status])
-    end
-
-    # Sorting
-    if params[:sort] == "recent"
-      @job_postings = @job_postings.order(posted_at: :desc)
-    else
-      @job_postings = @job_postings.order(ai_score: :desc, posted_at: :desc)
-    end
-
-    # Limit
-    @job_postings = @job_postings.limit(200)
+  # Title filter
+  if params[:title].present?
+    @job_postings = @job_postings.where(
+      "job_postings.title ILIKE ?", "%#{params[:title]}%"
+    )
   end
+
+  # Company filter
+  if params[:company].present?
+    @job_postings = @job_postings
+      .joins(:company)
+      .where("companies.name ILIKE ?", "%#{params[:company]}%")
+  end
+
+  # LOCATION filter
+  if params[:location] == "us"
+    @job_postings = @job_postings.where(
+      "job_postings.remote = TRUE
+       OR job_postings.location ILIKE ?
+       OR job_postings.location ILIKE ?
+       OR job_postings.location ILIKE ?
+       OR job_postings.location ILIKE ?",
+      "%united states%",
+      "%usa%",
+      "%america%",
+      "%us%"
+    )
+
+  elsif params[:location] == "colorado"
+    @job_postings = @job_postings.where(
+      "job_postings.location ILIKE ?
+       OR job_postings.location ILIKE ?
+       OR job_postings.location ILIKE ?",
+      "%colorado%",
+      "%denver%",
+      "%boulder%"
+    )
+  end
+
+  # Remote filter
+  if params[:remote] == "1"
+    @job_postings = @job_postings.where(remote: true)
+  end
+
+  # Status filter
+  if params[:status].present?
+    @job_postings = @job_postings.where(status: params[:status])
+  end
+
+  # Sorting
+  if params[:sort] == "recent"
+    @job_postings = @job_postings.order(posted_at: :desc)
+  else
+    @job_postings = @job_postings.order(ai_score: :desc, posted_at: :desc)
+  end
+
+  @job_postings = @job_postings.limit(100)
+end
 
 
   def show
@@ -121,7 +122,6 @@ class JobPostingsController < ApplicationController
     @job_posting = JobPosting.find(params[:id])
 
     resume_markdown = JobScoring::ResumeGenerator.new(@job_posting).call
-
     company_name = @job_posting.company&.name&.parameterize || "company"
 
     md_path   = Rails.root.join("tmp", "resume_#{company_name}.md")
@@ -142,8 +142,6 @@ class JobPostingsController < ApplicationController
 
     unless success && File.exist?(docx_path)
       Rails.logger.error "Pandoc failed to generate DOCX"
-      Rails.logger.error "Markdown file: #{md_path}"
-      Rails.logger.error "Template: #{template}"
       render plain: "DOCX generation failed", status: 500
       return
     end
