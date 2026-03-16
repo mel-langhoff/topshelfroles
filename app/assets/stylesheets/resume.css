@@ -75,3 +75,8 @@ h1, h2, h3, h4 {
   margin-bottom: 3px;
   line-height: 1.1;
 }
+
+.header a {
+  color: #0044cc;
+  text-decoration: underline;
+}

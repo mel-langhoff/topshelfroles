@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get :resume
     get :cover_letter
     get :download_resume
+    get :download_resume_docx
     end
   end
 end

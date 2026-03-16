@@ -126,6 +126,28 @@ def download_resume
          encoding: "UTF-8"
 end
 
+def download_resume_docx
+  @job_posting = JobPosting.find(params[:id])
+
+  resume_text = JobScoring::ResumeGenerator.new(@job_posting).call
+
+  company_name = @job_posting.company&.name&.parameterize || "company"
+
+  template_path = Rails.root.join("app", "docx_templates", "resume_template.docx")
+  output_path   = Rails.root.join("tmp", "resume_#{company_name}.docx")
+
+  doc = Docx::Document.open(template_path)
+
+  doc.paragraphs.each do |p|
+    p.replace_text("", resume_text)
+  end
+
+  doc.save(output_path)
+
+  send_file output_path,
+            filename: "Melissa_Langhoff_Resume_#{company_name}.docx",
+            type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+end
 
   private
 

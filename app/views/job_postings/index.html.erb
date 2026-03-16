@@ -156,6 +156,13 @@
           target: "_blank" %>
         </td>
 
+        <td>
+        <%= link_to "Download DOCX",
+    download_resume_docx_job_posting_path(job),
+    class: "btn btn-primary",
+    target: "_blank" %>
+    </td>
+    
         <!-- Update Status -->
         <td>
           <%= form_with model: job, method: :patch, local: true do |f| %>
