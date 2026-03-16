@@ -1,0 +1,19 @@
+<h1>AI Job Match Analysis</h1>
+
+<h2><%= @job.title %></h2>
+
+<p>
+<strong>Company:</strong>
+<%= @job.company.name %>
+</p>
+
+<p>
+<strong>AI Score:</strong>
+<%= @job.ai_score %>/100
+</p>
+
+<h3>AI Summary</h3>
+
+<p>
+<%= @job.ai_summary %>
+</p>

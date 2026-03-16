@@ -2,22 +2,23 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: postgres
-  password: admin
-  host: 127.0.0.1
-  port: 5432
-  sslmode: disable
 
 development:
   <<: *default
   database: topshelfroles_development
+  username: postgres
+  password: admin
+  host: 127.0.0.1
+  port: 5432
 
 test:
   <<: *default
   database: topshelfroles_test
+  username: postgres
+  password: admin
+  host: 127.0.0.1
+  port: 5432
 
 production:
   <<: *default
-  database: topshelfroles_production
-  username: topshelfroles
-  password: <%= ENV["TOPSHELFROLES_DATABASE_PASSWORD"] %>
+  url: <%= ENV["DATABASE_URL"] %>

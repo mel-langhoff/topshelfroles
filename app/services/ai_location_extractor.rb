@@ -1,20 +1,20 @@
 class AiLocationExtractor
   def extract(text)
-    return nil if text.nil?
+    return "unknown" if text.nil?
 
-    locations = [
-      "United States",
-      "USA",
-      "U.S.",
-      "Colorado",
-      "Denver",
-      "Boulder",
-      "Remote",
-      "US"
-    ]
+    text = text.downcase
 
-    found = locations.find { |loc| text.downcase.include?(loc.downcase) }
+    return "colorado" if text.include?("colorado") ||
+                         text.include?("denver") ||
+                         text.include?("boulder") ||
+                         text.include?(", co")
 
-    found || "Unknown"
+    return "us" if text.include?("united states") ||
+                   text.include?("usa") ||
+                   text.include?("u.s.")
+
+    return "remote" if text.include?("remote")
+
+    "unknown"
   end
 end

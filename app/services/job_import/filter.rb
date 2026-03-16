@@ -23,41 +23,33 @@ module JobImport
 
     def passes?
       remote_match? &&
-        location_match? &&
         not_workday? &&
-        title_match?
+        ai_relevant?
     end
 
     private
 
     attr_reader :job_data, :search_profile
 
+    # Cheap filter first
     def remote_match?
       job_data[:remote] == true
     end
 
-    def location_match?
-      haystack = "#{job_data[:location_text]} #{job_data[:description]}".downcase
-
-      haystack.include?("united states") ||
-        haystack.include?("usa") ||
-        haystack.include?("u.s.") ||
-        haystack.include?("us-only") ||
-        haystack.include?("colorado") ||
-        haystack.include?("co")
-    end
-
+    # Block workday spam
     def not_workday?
       !job_data[:apply_url].to_s.downcase.include?("workday")
     end
 
-    def title_match?
-      title = job_data[:title].to_s.downcase
+    # Keyword filter instead of AI (fast + reliable)
+    def ai_relevant?
+      text = [
+        job_data[:title],
+        job_data[:description],
+        job_data[:location_text]
+      ].join(" ").downcase
 
-      profile_terms = search_profile_terms
-      terms = (TARGET_TITLE_TERMS + profile_terms).uniq
-
-      terms.any? { |term| title.include?(term.downcase) }
+      TARGET_TITLE_TERMS.any? { |term| text.include?(term) }
     end
 
     def search_profile_terms

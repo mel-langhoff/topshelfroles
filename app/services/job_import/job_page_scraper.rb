@@ -24,13 +24,15 @@ module JobImport
       return unless response.is_a?(Net::HTTPSuccess)
 
       response.body
+    rescue
+      nil
     end
 
     def parse_job(html)
       doc = Nokogiri::HTML(html)
 
       title = doc.at("title")&.text.to_s.strip
-      body_text = doc.text.to_s
+      body_text = doc.text.to_s[0..20000]
 
       location_text = AiLocationExtractor.new.extract(body_text)
 
@@ -67,7 +69,8 @@ module JobImport
     end
 
     def extract_company
-      URI(url).host
+      host = URI(url).host
+      host.sub("www.", "").split(".").first.capitalize
     end
   end
 end
