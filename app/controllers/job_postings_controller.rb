@@ -3,56 +3,46 @@ class JobPostingsController < ApplicationController
 def index
   @job_postings = JobPosting.includes(:company)
 
-  # Title filter
   if params[:title].present?
-    @job_postings = @job_postings.where(
-      "job_postings.title ILIKE ?", "%#{params[:title]}%"
-    )
+    @job_postings = @job_postings.where("job_postings.title ILIKE ?", "%#{params[:title]}%")
   end
 
-  # Company filter
   if params[:company].present?
-    @job_postings = @job_postings
-      .joins(:company)
-      .where("companies.name ILIKE ?", "%#{params[:company]}%")
+    @job_postings = @job_postings.joins(:company)
+                                 .where("companies.name ILIKE ?", "%#{params[:company]}%")
   end
 
-  # LOCATION filter
+  # LOCATION FILTER
   if params[:location] == "us"
     @job_postings = @job_postings.where(
-      "job_postings.remote = TRUE
-       OR job_postings.location ILIKE ?
-       OR job_postings.location ILIKE ?
-       OR job_postings.location ILIKE ?
-       OR job_postings.location ILIKE ?",
+      "(
+        job_postings.location ILIKE ANY (ARRAY[?,?,?,?,?])
+        OR (job_postings.remote = TRUE AND job_postings.location IS NULL)
+      )",
       "%united states%",
       "%usa%",
+      "%u.s%",
       "%america%",
-      "%us%"
+      "%north america%"
     )
 
   elsif params[:location] == "colorado"
     @job_postings = @job_postings.where(
-      "job_postings.location ILIKE ?
-       OR job_postings.location ILIKE ?
-       OR job_postings.location ILIKE ?",
+      "job_postings.location ILIKE ANY (ARRAY[?,?,?])",
       "%colorado%",
       "%denver%",
       "%boulder%"
     )
   end
 
-  # Remote filter
   if params[:remote] == "1"
     @job_postings = @job_postings.where(remote: true)
   end
 
-  # Status filter
   if params[:status].present?
     @job_postings = @job_postings.where(status: params[:status])
   end
 
-  # Sorting
   if params[:sort] == "recent"
     @job_postings = @job_postings.order(posted_at: :desc)
   else
@@ -61,8 +51,6 @@ def index
 
   @job_postings = @job_postings.limit(100)
 end
-
-
   def show
     @job_posting = JobPosting.find(params[:id])
   end
