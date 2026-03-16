@@ -18,12 +18,20 @@ module JobScoring
 
       Rules:
       - Do not invent experience
+      - Do not generate name and contact info unless a docx
       - Keep it concise
+      - Do not generate core competencies
       - Use strong action verbs
       - Optimize for ATS keyword matching
       - Emphasize relevant skills
       - Keep professional tone
       - Use bullet points
+      - Generate a professional summary that is 2-3 sentences
+      - Generate 2 bullet points per job
+      - Generate relevant skills and do not make anything up or add any skills
+      - Do not include core competencies
+      - Do not include "additional qualifications"
+      - Do not include anything about references
 
       Candidate:
       Melissa Langhoff

@@ -129,24 +129,38 @@ end
 def download_resume_docx
   @job_posting = JobPosting.find(params[:id])
 
-  resume_text = JobScoring::ResumeGenerator.new(@job_posting).call
+  resume_markdown = JobScoring::ResumeGenerator.new(@job_posting).call
 
   company_name = @job_posting.company&.name&.parameterize || "company"
 
-  template_path = Rails.root.join("app", "docx_templates", "resume_template.docx")
-  output_path   = Rails.root.join("tmp", "resume_#{company_name}.docx")
+  md_path   = Rails.root.join("tmp", "resume_#{company_name}.md")
+  docx_path = Rails.root.join("tmp", "resume_#{company_name}.docx")
 
-  doc = Docx::Document.open(template_path)
+  File.write(md_path, resume_markdown)
 
-  doc.paragraphs.each do |p|
-    p.replace_text("", resume_text)
+  pandoc_path = "C:/Program Files/Pandoc/pandoc.exe"
+  template    = Rails.root.join("app", "docx_templates", "resume_template.docx")
+
+  success = system(
+    pandoc_path,
+    md_path.to_s,
+    "-f", "markdown",
+    "-o", docx_path.to_s,
+    "--reference-doc=#{template}"
+  )
+
+  unless success && File.exist?(docx_path)
+    Rails.logger.error "Pandoc failed to generate DOCX"
+    Rails.logger.error "Markdown file: #{md_path}"
+    Rails.logger.error "Template: #{template}"
+    render plain: "DOCX generation failed", status: 500
+    return
   end
 
-  doc.save(output_path)
 
-  send_file output_path,
-            filename: "Melissa_Langhoff_Resume_#{company_name}.docx",
-            type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+send_file docx_path,
+          filename: "Melissa_Langhoff_Resume_#{company_name}.docx",
+          type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
 end
 
   private
