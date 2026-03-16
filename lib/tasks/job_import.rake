@@ -6,7 +6,7 @@ namespace :jobs do
 
   desc "Score jobs with AI"
   task score: :environment do
-    JobPosting.find_each do |job|
+    JobPosting.where(ai_score: nil).limit(100).find_each do |job|
       JobScoring::AiJobScorer.new(job).call
     end
   end
@@ -15,7 +15,7 @@ namespace :jobs do
   task refresh: :environment do
     JobImport::ImportCoordinator.new.call
 
-    JobPosting.find_each do |job|
+    JobPosting.where(ai_score: nil).limit(100).find_each do |job|
       JobScoring::AiJobScorer.new(job).call
     end
   end

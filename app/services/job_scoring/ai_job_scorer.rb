@@ -41,15 +41,13 @@ module JobScoring
       }
       PROMPT
 
-      response = client.chat(
-        parameters: {
-          model: "gpt-4o-mini",
-          messages: [
-            { role: "user", content: prompt }
-          ],
-          temperature: 0.2
-        }
-      )
+          response = client.chat(
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "user", content: prompt }
+      ],
+      temperature: 0.2
+    )
 
       content = response.dig("choices", 0, "message", "content")
 
