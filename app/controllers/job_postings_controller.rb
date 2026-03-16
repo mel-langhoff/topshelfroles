@@ -100,6 +100,33 @@ def analyze
   render :analyze
 end
 
+
+def cover_letter
+  job = JobPosting.find(params[:id])
+
+  @cover_letter = JobScoring::CoverLetterGenerator.new(job).call
+end
+
+def resume
+  job = JobPosting.find(params[:id])
+  @resume = JobScoring::ResumeGenerator.new(job).call
+end
+
+def download_resume
+  @job_posting = JobPosting.find(params[:id])
+
+  @resume = JobScoring::ResumeGenerator.new(@job_posting).call
+
+  company_name = @job_posting.company&.name&.parameterize || "company"
+
+  render pdf: "Melissa_Langhoff_Resume_#{company_name}",
+         template: "job_postings/resume",
+         layout: "pdf",
+         disposition: "attachment",
+         encoding: "UTF-8"
+end
+
+
   private
 
   def job_posting_params

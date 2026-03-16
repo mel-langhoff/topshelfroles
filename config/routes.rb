@@ -7,6 +7,9 @@ Rails.application.routes.draw do
     member do
       get :resume_pdf
       get :analyze
+      get :resume
+    get :cover_letter
+    get :download_resume
     end
   end
 end

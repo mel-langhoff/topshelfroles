@@ -68,7 +68,10 @@
       <th>Posted</th>
       <th>Status</th>
       <th>Apply</th>
-      <th>AI</th>
+      <th>Analyze</th>
+      <th>Cover Letter</th>
+      <th>Resume</th>
+      <th>PDF</th>
       <th>Update</th>
     </tr>
   </thead>
@@ -91,7 +94,7 @@
         </td>
 
         <!-- Company -->
-        <td><%= job.company.name %></td>
+        <td><%= job.company&.name %></td>
 
         <!-- Title -->
         <td>
@@ -123,11 +126,35 @@
           <%= link_to "Apply", job.apply_url, target: "_blank", rel: "noopener" %>
         </td>
 
-<td>
-  <%= link_to "Analyze",
-      analyze_job_posting_path(job),
-      target: "_blank" %>
-</td>
+        <!-- Analyze -->
+        <td>
+          <%= link_to "Analyze",
+              analyze_job_posting_path(job),
+              target: "_blank" %>
+        </td>
+
+        <!-- Cover Letter -->
+        <td>
+          <%= link_to "Generate Cover Letter",
+              cover_letter_job_posting_path(job),
+              target: "_blank" %>
+        </td>
+
+        <!-- Resume -->
+        <td>
+          <%= link_to "Generate Resume",
+              resume_job_posting_path(job),
+              class: "btn btn-primary",
+              target: "_blank" %>
+        </td>
+
+        <!-- Download PDF -->
+        <td>
+          <%= link_to "Download Resume PDF",
+          download_resume_job_posting_path(job),
+          class: "btn btn-primary",
+          target: "_blank" %>
+        </td>
 
         <!-- Update Status -->
         <td>

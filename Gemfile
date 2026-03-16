@@ -46,6 +46,7 @@ gem "bootstrap"
 gem "faker"
 gem "openai"
 gem 'jquery-rails'
+gem "redcarpet"
 
 
 
