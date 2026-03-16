@@ -68,6 +68,7 @@
       <th>Posted</th>
       <th>Status</th>
       <th>Apply</th>
+      <th>AI</th>
       <th>Update</th>
     </tr>
   </thead>
@@ -76,6 +77,7 @@
     <% @job_postings.each do |job| %>
       <tr>
 
+        <!-- Score -->
         <td class="
           <% if job.ai_score.to_i >= 80 %>
             score-high
@@ -88,34 +90,46 @@
           <%= job.ai_score || 0 %>
         </td>
 
-        <td>
-          <%= job.company.name %>
-        </td>
+        <!-- Company -->
+        <td><%= job.company.name %></td>
 
+        <!-- Title -->
         <td>
           <%= link_to job.title, job_posting_path(job) %>
         </td>
 
+        <!-- Location -->
         <td>
           <%= job.location %>
         </td>
 
+        <!-- Remote -->
         <td>
           <%= job.remote ? "Yes" : "No" %>
         </td>
 
+        <!-- Posted -->
         <td>
           <%= job.posted_at&.to_date %>
         </td>
 
+        <!-- Status -->
         <td>
           <%= job.status.presence || "new" %>
         </td>
 
+        <!-- Apply -->
         <td>
           <%= link_to "Apply", job.apply_url, target: "_blank", rel: "noopener" %>
         </td>
 
+<td>
+  <%= link_to "Analyze",
+      analyze_job_posting_path(job),
+      target: "_blank" %>
+</td>
+
+        <!-- Update Status -->
         <td>
           <%= form_with model: job, method: :patch, local: true do |f| %>
             <%= f.select :status, JobPosting::STATUSES, selected: job.status.presence || "new" %>

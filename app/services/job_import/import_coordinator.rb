@@ -26,6 +26,7 @@ module JobImport
 
     def import_source(source)
       results = source.fetch_jobs
+      return if results.blank?
 
       results.each do |raw_job|
         normalized_job = JobImport::Normalizer.new(raw_job).call
@@ -42,6 +43,7 @@ module JobImport
           search_profile: search_profile,
           title: normalized_job[:title],
           remote: normalized_job[:remote],
+          location: normalized_job[:location_text],
           apply_url: normalized_job[:apply_url],
           description: normalized_job[:description],
           posted_at: normalized_job[:posted_at],
@@ -55,8 +57,10 @@ module JobImport
 
         job.save!
 
-        # Run AI scoring AFTER job is stored
-        JobScoring::JobMatchScorer.new(job).call
+        # Only score if it hasn't been scored yet
+        if job.ai_score.to_i == 0
+          JobScoring::JobMatchScorer.new(job).call
+        end
       end
     rescue StandardError => e
       Rails.logger.error("Import failed for #{source.class.name}: #{e.message}")
