@@ -4,8 +4,8 @@ require "uri"
 
 module JobSources
   class CareerSiteSource
+
     CAREER_SITES = [
-      "https://stripe.com/jobs",
       "https://vercel.com/careers",
       "https://openai.com/careers",
       "https://notion.so/careers",
@@ -13,6 +13,8 @@ module JobSources
     ]
 
     def fetch_jobs
+      jobs = []
+
       CAREER_SITES.each do |site|
         html = Net::HTTP.get(URI(site))
         doc = Nokogiri::HTML(html)
@@ -25,13 +27,14 @@ module JobSources
             url = URI.join(site, href).to_s rescue nil
             next unless url
 
-            # 👇 THIS calls your scraper
-            JobImport::JobPageScraper.new(url).call
+            job = JobImport::JobPageScraper.new(url).call
+            jobs << job if job
           end
         end
       end
 
-      []
+      jobs
     end
+
   end
 end

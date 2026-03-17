@@ -3,11 +3,15 @@ require "json"
 
 module JobSources
   class WorkableService
-    COMPANIES = [
-      "shopmonkey",
-      "sourcegraph",
-      "paddle"
-    ].freeze
+
+    COMPANIES = %w[
+      sourcegraph
+      paddle
+      shopmonkey
+      hopin
+      circuit
+      omnidian
+    ]
 
     def fetch_jobs
       jobs = []
@@ -16,11 +20,7 @@ module JobSources
         url = URI("https://apply.workable.com/api/v3/accounts/#{company}/jobs")
 
         response = Net::HTTP.get_response(url)
-
-        unless response.is_a?(Net::HTTPSuccess)
-          Rails.logger.error("Workable fetch failed for #{company}: #{response.code}")
-          next
-        end
+        next unless response.is_a?(Net::HTTPSuccess)
 
         data = JSON.parse(response.body)
 
@@ -34,9 +34,9 @@ module JobSources
             remote: job.dig("location", "location_str").to_s.downcase.include?("remote")
           }
         end
-      rescue JSON::ParserError => e
-        Rails.logger.error("Workable parse error for #{company}: #{e.message}")
-        next
+
+      rescue StandardError => e
+        Rails.logger.error("Workable fetch failed for #{company}: #{e.message}")
       end
 
       jobs

@@ -17,25 +17,34 @@ def index
       .where("companies.name ILIKE ?", "%#{params[:company]}%")
   end
 
-  # LOCATION filter
-  if params[:location] == "us"
+  # Location filter
+  case params[:location]
+  when "us"
     @job_postings = @job_postings.where(
-      "job_postings.remote = TRUE
-       OR job_postings.location ILIKE ?
-       OR job_postings.location ILIKE ?
-       OR job_postings.location ILIKE ?
-       OR job_postings.location ILIKE ?",
+      "(job_postings.location ILIKE ANY (ARRAY[?,?,?,?,?,?])
+        OR (job_postings.remote = TRUE AND job_postings.location IS NULL))",
       "%united states%",
       "%usa%",
+      "%u.s%",
       "%america%",
-      "%us%"
+      "%north america%",
+      "%remote us%"
+    ).where.not(
+      "job_postings.location ILIKE ANY (ARRAY[?,?,?,?,?,?,?,?,?])",
+      "%singapore%",
+      "%london%",
+      "%india%",
+      "%europe%",
+      "%germany%",
+      "%france%",
+      "%spain%",
+      "%australia%",
+      "%canada%"
     )
 
-  elsif params[:location] == "colorado"
+  when "colorado"
     @job_postings = @job_postings.where(
-      "job_postings.location ILIKE ?
-       OR job_postings.location ILIKE ?
-       OR job_postings.location ILIKE ?",
+      "job_postings.location ILIKE ANY (ARRAY[?,?,?])",
       "%colorado%",
       "%denver%",
       "%boulder%"
@@ -59,8 +68,10 @@ def index
     @job_postings = @job_postings.order(ai_score: :desc, posted_at: :desc)
   end
 
-  @job_postings = @job_postings.limit(100)
+  @job_postings = @job_postings.limit(10000)
 end
+
+
 
 
   def show
