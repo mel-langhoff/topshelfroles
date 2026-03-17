@@ -14,13 +14,13 @@ module JobDiscovery
         "scrum master",
         "agile project manager",
 
-        # Developer roles
-        "ruby on rails developer",
-        "rails developer",
-        "backend ruby developer",
-        "backend engineer ruby",
-        "software engineer ruby",
-        "ruby backend engineer",
+        # # Developer roles
+        # "ruby on rails developer",
+        # "rails developer",
+        # "backend ruby developer",
+        # "backend engineer ruby",
+        # "software engineer ruby",
+        # "ruby backend engineer",
 
         # Customer / client roles
         "customer success manager",
@@ -36,8 +36,8 @@ module JobDiscovery
         "technical analyst",
 
         # Remote-friendly queries
-        "remote ruby developer",
-        "remote backend engineer",
+        # "remote ruby developer",
+        # "remote backend engineer",
         "remote project manager",
         "remote technical program manager"
       ]

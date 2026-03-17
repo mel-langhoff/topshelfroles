@@ -4,11 +4,15 @@ require "json"
 module JobSources
   class LeverSource
     ACCOUNT_NAMES = %w[
-      # put real Lever account names here
-      # example:
-      # netflix
-      # plaid
-    ].freeze
+  plaid
+  rippling
+  scaleai
+  flexport
+  discord
+  robinhood
+  docker
+  amplitude
+].freeze
 
     def fetch_jobs
       ACCOUNT_NAMES.flat_map do |account_name|

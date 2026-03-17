@@ -68,7 +68,7 @@ def index
     @job_postings = @job_postings.order(ai_score: :desc, posted_at: :desc)
   end
 
-  @job_postings = @job_postings.limit(100)
+  @job_postings = @job_postings.limit(10000)
 end
 
 

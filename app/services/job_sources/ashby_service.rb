@@ -3,10 +3,17 @@ require "json"
 
 module JobSources
   class AshbyService
-    COMPANIES = [
-      "openai",
-      "figma",
-      "retool"
+
+    COMPANIES = %w[
+      notion
+      linear
+      replit
+      ramp
+      scale
+      anthropic
+      openai
+      figma
+      retool
     ]
 
     def fetch_jobs
@@ -40,6 +47,8 @@ module JobSources
         request.body = body.to_json
 
         response = http.request(request)
+        next unless response.is_a?(Net::HTTPSuccess)
+
         data = JSON.parse(response.body)
 
         jobs_data = data.dig("data", "jobBoardWithTeams", "jobs") || []
@@ -54,9 +63,11 @@ module JobSources
             remote: job["locationName"].to_s.downcase.include?("remote")
           }
         end
+      rescue StandardError => e
+        Rails.logger.error("Ashby fetch failed for #{company}: #{e.message}")
       end
 
       jobs
     end
   end
-end 
+end
